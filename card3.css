@@ -1,0 +1,397 @@
+
+
+body {
+    height: 100vh; /* A body magassága a teljes viewport magassága */
+    overflow: hidden; /* A scrollbarok elrejtése */
+    display: flex; /* Flexbox használata */
+    justify-content: center; /* Középre igazítás vízszintesen */
+    align-items: center; /* Középre igazítás függőlegesen */
+    margin: 0; /* Margin eltávolítása */
+    background-color: #ffffff; /* Háttérszín fehérre állítása */
+}
+
+.container {
+    
+    
+    height: 250px;
+    width: 490px;
+    perspective: 800px; /* 3D perspektíva */
+    animation: floating 4s infinite; /* Lebegés animáció */
+
+
+    
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 375.2px) {
+    .container {
+        height: 180px  !important; /* Card height for mobile */
+        width: 320px !important; /* Card width for mobile */
+    }
+
+    .custom-link {
+        margin-left: -20px; /* Adjust margin */
+    }
+
+    /* Adjust images to fit within the card */
+    .card img {
+        width: 100% !important;
+        height: auto  !important;
+    }
+
+    /* Adjust text size and positioning for smaller screens */
+    .front-content {
+        margin-right: 40px !important;
+        font-size: 7px !important; /* Smaller font size */
+        gap: 40px !important;
+        margin-top: -20px !important;
+    }
+
+    .back-content {
+        margin-top: -100px !important;
+        font-size: smaller !important;
+        margin-left: 40px !important;
+    }
+
+   
+    
+
+    .QRcode img {
+        height: 20px !important;
+        width: 30px !important;
+        margin-top: 107px !important;
+        margin-left: -110px !important;
+    
+    }
+
+    .QRcode2 img{
+        height: 20px !important;
+        width: 30px !important;
+        margin-top: 80px !important;
+        margin-left: -110px !important;
+        
+    }
+
+    /* Smaller buttons and margins */
+    .buttons {
+        margin-left: 30px  !important;
+        margin-top: -50px  !important;
+        gap: 3px !important;
+    }
+
+    .buttons button {
+        font-size: 7px !important;
+        padding: 5px 5px !important;
+    }
+
+    /* Appointment booking adjustments */
+    .idopont-foglalas {
+        margin-left: -220px !important;
+        margin-top: 28px !important;
+    }
+
+    /* Date picker adjustment */
+    .textbox {
+        margin-left: -300px !important;
+        margin-top: 105px  !important;
+        padding: 2px!important;
+        font-size: x-small !important;
+    }
+
+
+
+    /* Smaller text for QR code labels */
+    .QRcode-name {
+        margin-left: 230px !important;
+        margin-top: -80px !important;
+        font-size: 10px !important;
+        gap: 40px !important;
+    }
+
+    /* Modal adjustments */
+    .modal {
+        margin: auto;
+        display: none;
+        width: 100px;
+        height: 300px;
+        margin-top: 30px;
+        margin-left: 240px;
+        position: fixed;
+    }
+
+    .modal-content {
+        margin: auto;
+        display: flex;
+        max-width: 80%;
+        max-height: 80%;
+        position: relative;
+        border: 2px solid black;
+    }
+
+    .close {
+        position: absolute;
+        top: -15px;
+        right: 75px;
+        color: rgb(255, 255, 255);
+        font-size: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+    }
+}
+
+
+
+
+
+
+.card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 900ms;
+    transform-style: preserve-3d;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.front,
+.back {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: transform 0.10s, box-shadow 0.15s;
+    box-shadow: 0 55px 50px rgb(0, 0, 0);
+    backface-visibility: hidden;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.8));
+}
+
+.front {
+    background: linear-gradient(to bottom right, #ffffff, #c8c8c8, #676767);
+}
+
+.back {
+    background: linear-gradient(to bottom right, #534f4f, #797979, #000000);
+    transform: rotateY(180deg);
+}
+
+
+.front-content{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    text-decoration: none;
+    color: rgb(249, 208, 137);
+    margin-top: -42px;
+    margin-left: 90px;
+    font-size: small;
+    gap: 35px;
+}
+
+.back-content{
+    display: flex;
+    position: absolute;
+    color: rgb(249, 208, 137);
+    margin-top: -145px;
+    margin-left: 65px;
+    
+}
+
+.custom-link {
+    color: rgb(249, 208, 137); /* Sárga szín */
+    text-decoration: none; /* Aláhúzás eltávolítása */
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* Aláhúzás hover állapotban */
+}
+
+
+
+.emailcontent{
+    display: flex;
+    color: rgb(249, 208, 137);
+    margin-top: 20px;
+    position: absolute;
+}
+
+button{
+    background: linear-gradient(to right, rgb(250, 229, 166), rgb(248, 235, 132));
+        color: rgb(0, 0, 0);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease; /* Sima átmenet a hoverre */
+        
+    }
+
+
+button:hover {
+    background-color: rgba(234, 213, 19, 0.914); /* Háttér szín sárga lesz */
+        color: rgb(0, 0, 0); /* Szöveg szín fehér lesz */
+        box-shadow: 0 0 20px 5px rgba(255, 245, 179, 0.8); /* Erős sárga világítás a gomb körül */
+    
+    }
+
+
+
+.buttons{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: -90px;
+    margin-left: 30px;
+    font-size: small;
+    gap: 5px;
+    cursor: pointer;
+
+}
+
+
+.QRcode{
+    margin-top: -220px;
+    margin-left:  350px;
+    position: absolute;
+    display: flex;
+}
+
+.QRcode2{
+    margin-top: -120px;
+    margin-left:  350px;
+    position: absolute;
+    display: flex;
+}
+
+.QRcode-name{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    color: rgb(249, 208, 137);
+    margin-left: 350px;
+    margin-top: -150px;
+}
+
+
+.QRcode img,
+.QRcode2 img {
+    transition: filter 0.3s ease; /* Zökkenőmentes átmenet */
+}
+
+.QRcode img:hover,
+.QRcode2 img:hover {
+    filter: brightness(1.4); /* Növelje a fényerőt hover állapotban */
+}
+
+.idopont-foglalas{
+    display: flex;
+    position: absolute;
+    margin-left: -320px;
+    margin-top: 65px;
+}
+
+.textbox{
+    display: flex;
+    position: absolute;
+    margin-left: -274px;
+    margin-top: 81px;
+    border-radius: 2px;
+}
+
+.textbox input {
+    padding: 2px;
+    border: 2px solid #000000; /* Alapértelmezett keret szín */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Zökkenőmentes átmenet */
+    background-color: rgb(250, 229, 166);
+}
+
+
+.textbox input:hover,
+.textbox input:focus {
+    border-color: #f9d08e; /* Keret szín hover vagy focus állapotban */
+    background-color: rgba(249, 208, 137, 0.2); /* Háttérszín hover vagy focus állapotban */
+}
+
+
+.modal {
+    margin: auto;
+    display: none;
+    width: 600px;
+    height: 800px;
+    margin-top: 30px;
+    margin-left: 240px;
+     position: fixed; 
+    
+    }
+
+    
+
+.modal-content {
+    margin: auto;
+    display: flex;
+    max-width: 80%;
+    max-height: 80%;
+    position: relative;
+    border: 2px solid black;
+}
+
+.close {
+    position: absolute;
+    top: -15px;
+    right: 75px;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10; /* A gomb legyen mindig a kép fölött */
+}
+
+.modal2 {
+    display: none;
+    margin: auto;
+    margin-left: 230px;
+     position: fixed; 
+}
+
+.modal-content2 {
+    margin: auto;
+    display: flex;
+    height: 550px;
+    width: 400px;
+    position: relative;
+    border: 2px solid rgb(0, 0, 0);
+    margin-top: 70px;
+}
+
+.close2 {
+    position: absolute;
+    top: 90px;
+    right: 15px;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10; /* A gomb legyen mindig a kép fölött */
+}
+
+
+
+
+
+
+
+
+
+@keyframes floating {
+    0% {
+        transform: translateY(15px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(15px);
+    }
+}
+
